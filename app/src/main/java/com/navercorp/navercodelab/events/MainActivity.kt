@@ -35,18 +35,18 @@ class MainActivity2 : AppCompatActivity() {
             runBlocking {
 
                 delay(1000)
-                photos.forEach {
-                    val result = GlobalScope.async(Default) {
-                        val imageData = assets.open("sea.jpeg").use {
-                            BitmapFactory.decodeStream(it)
+                val result = GlobalScope.launch {
+                    val jobs = photos.map {
+                        async {
+                            assets.open(it).use {
+                                BitmapFactory.decodeStream(it)
+                            }
                         }
                     }
+                    jobs.awaitAll()
 
-                    joinAll(result)
                 }
             }
-
-
 
         }.also { Toast.makeText(applicationContext, "elapsed = $it", Toast.LENGTH_LONG).show() }
 
