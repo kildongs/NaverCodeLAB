@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         photoView = findViewById(R.id.photoView)
 
 
-        decodeAll()
+//        decodeAll()
 
             GlobalScope.launch(Default) {
                 val imageData = assets.open("sea.jpeg").use {
