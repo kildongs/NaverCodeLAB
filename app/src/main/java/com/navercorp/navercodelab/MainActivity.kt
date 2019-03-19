@@ -23,81 +23,17 @@ class MainActivity : AppCompatActivity() {
 
 
     val photos = arrayOf("aurora.jpg", "door.png", "matehorn.jpeg", "sea.jpeg", "tea.png", "window_1.png", "window_2.png")
+    val targetName = "tea.png"
+    val bgName = "matehorn.jpeg"
     lateinit var photoView: ImageView
 
 
     operator fun  Bitmap.plus(bg:Bitmap):Bitmap  = mergeImages( bg, this, Point(0,0))
 
-
-    fun decodeAll() {
-        measureTimeMillis {
-            runBlocking {
-
-                delay(1000)
-                photos.forEach {
-                    val result = GlobalScope.async(Default) {
-                        val imageData = assets.open("sea.jpeg").use {
-                            BitmapFactory.decodeStream(it)
-                        }
-                    }
-
-                    joinAll(result)
-                }
-            }
-
-
-
-        }.also { Toast.makeText(applicationContext, "elapsed = $it", Toast.LENGTH_LONG).show() }
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         photoView = findViewById(R.id.photoView)
-
-
-//        decodeAll()
-
-            GlobalScope.launch(Default) {
-                val imageData = assets.open("sea.jpeg").use {
-                    BitmapFactory.decodeStream(it)
-                }
-
-                val result = blurBitmap(imageData, this@MainActivity)
-
-                //photoView.background = BitmapDrawable(deferredBG.await())
-                //photoView.setImageBitmap(deferredTarget.await())
-
-
-                    val deferredBG = async<Bitmap>(Default)  {
-                        val imageData = assets.open("matehorn.jpeg").use {
-                            BitmapFactory.decodeStream(it)
-                        }
-                        blurBitmap(imageData, this@MainActivity)
-                    }
-
-
-                    val deferredTarget = async<Bitmap>(Default)  {
-                        val imageData = assets.open("tea.png").use {
-                            BitmapFactory.decodeStream(it)
-                        }
-                        imageData
-                    }
-
-               // awaitAll(deferredBG, deferredTarget)
-                val deferredMerge = deferredBG.await() + deferredTarget.await()
-
-
-                launch (UI){
-                    val resultImage = deferredMerge
-                    photoView.setImageBitmap(resultImage)
-                    launch(IO) {
-                        writeBitmapToFile(this@MainActivity, resultImage)
-                    }
-                }
-            }
 
     }
 
@@ -107,23 +43,5 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-    fun sampleLaunch() {
-
-
-        runBlocking(IO) {
-
-        }
-    }
-
-    fun sampleAsync() {
-
-    }
-
-    /*
-    suspend fun decodeBG():Bitmap {
-
-        return
-    }*/
 
 }
