@@ -3,7 +3,6 @@ package com.navercorp.navercodelab.events
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
-import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
@@ -11,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.example.background.workers.blurBitmap
 import com.example.background.workers.writeBitmapToFile
+import com.navercorp.navercodelab.threads.MainExecutor
 import com.navercorp.navercodelab.R
 import com.navercorp.navercodelab.samples.coroutine.Default
 import com.navercorp.navercodelab.samples.coroutine.IO
@@ -112,9 +112,14 @@ class MainActivity2 : AppCompatActivity() {
     fun sampleLaunch() {
 
 
-        runBlocking(IO) {
+        runBlocking(UI) {
 
+            withContext(MainExecutor.getInstance().createPool().asCoroutineDispatcher()) {
+
+            }
         }
+
+
     }
 
     fun sampleAsync() {
