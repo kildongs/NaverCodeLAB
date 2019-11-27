@@ -4,11 +4,15 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Point
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.customDispatcher
 import kotlinx.coroutines.Dispatchers
 
 val IO = Dispatchers.IO
 val UI = Dispatchers.Main
 val Default = Dispatchers.Default
+val UnConfined = Dispatchers.Unconfined
+
+val realtimeMedia = customDispatcher
 
 //
 

@@ -14,7 +14,7 @@ class ChannelExample {
 
     val imageProcessingJob = Job()
 
-    val sourceChannel = Channel<Buffer>()
+    val sourceChannel = Channel<Buffer>(Channel.UNLIMITED)
 
     val context = CoroutineScope(imageProcessingJob )
 
@@ -31,8 +31,6 @@ class ChannelExample {
         }
 
     }
-
-
 
     fun onFrame(frame : ByteBuffer) {
         runBlocking(imageProcessingJob){

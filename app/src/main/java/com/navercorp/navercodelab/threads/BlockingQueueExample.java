@@ -14,14 +14,12 @@ public class BlockingQueueExample {
 
     }
 
-
     Runnable decodeRunnable = ()-> {
 
         try {
             Bitmap bitmap = bitmapQueue.poll(50, TimeUnit.MILLISECONDS);
             if (bitmap != null) {
                 Bitmap target = bitmapQueue.take();
-
             }
         } catch (Exception e) {
 
