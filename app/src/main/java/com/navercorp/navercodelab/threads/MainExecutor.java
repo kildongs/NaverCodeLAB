@@ -18,11 +18,4 @@ public class MainExecutor  {
         return Executors.newFixedThreadPool(4);
     }
 
-
-
-//    public ExecutorService createFJPool() {
-//        return ForkJoinPool.commonPool();
-//    }
-
-
 }
