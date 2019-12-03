@@ -9,8 +9,8 @@ import java.io.PipedOutputStream;
 
 public class AudioPipeStream {
 
-    final PipedOutputStream output = new PipedOutputStream();
-    final PipedInputStream  input  = new PipedInputStream(output);
+     PipedOutputStream output = new PipedOutputStream();
+    PipedInputStream  input;
 
 
     Thread thread1 = new Thread(new Runnable() {
@@ -38,7 +38,8 @@ public class AudioPipeStream {
         }
     });
 
-    void start() {
+    void start() throws Exception {
+        input  = new PipedInputStream(output);
         thread1.start();
         thread2.start();
     }

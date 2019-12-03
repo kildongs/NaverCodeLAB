@@ -7,7 +7,7 @@ public class VideoChannel {
 
     Pipe.SinkChannel sinkChannel = null;
     Pipe.SourceChannel sourceChannel = null;
-    void start() {
+    void start() throws Exception{
         Pipe pipe = Pipe.open();
 
         sinkChannel = pipe.sink();
@@ -15,7 +15,7 @@ public class VideoChannel {
     }
 
 
-    void write() {
+    void write() throws Exception{
         String newData = "New String to write to file..." + System.currentTimeMillis();
 
         ByteBuffer buf = ByteBuffer.allocate(48);
@@ -29,7 +29,7 @@ public class VideoChannel {
         }
     }
 
-    void read() {
+    void read() throws Exception{
         ByteBuffer buf = ByteBuffer.allocate(48);
 
         int bytesRead = sourceChannel.read(buf);
