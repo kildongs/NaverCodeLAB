@@ -10,14 +10,16 @@ import kotlin.coroutines.CoroutineContext
 val processorCount : Int
     inline get() = Runtime.getRuntime().availableProcessors()
 
-val customExecutor: Executor = Executors.newFixedThreadPool(
-    processorCount,object : ThreadFactory {
-        override fun newThread(r: Runnable?): Thread {
-            return Thread(r).apply {
-                priority = Process.THREAD_PRIORITY_URGENT_AUDIO
-            }
+val realtimeThreadImpl = object : ThreadFactory {
+    override fun newThread(r: Runnable?): Thread {
+        return Thread(r).apply {
+            priority = Process.THREAD_PRIORITY_URGENT_AUDIO
         }
-    }) //
+    }
+}
+
+val customExecutor: Executor = Executors.newFixedThreadPool(
+    processorCount, realtimeThreadImpl) //
 
 val customDispatcher = object : CoroutineDispatcher() {
     override fun dispatch(context: CoroutineContext, block: Runnable) {
