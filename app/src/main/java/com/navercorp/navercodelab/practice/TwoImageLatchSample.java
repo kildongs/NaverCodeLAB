@@ -1,4 +1,4 @@
-package com.navercorp.navercodelab.events;
+package com.navercorp.navercodelab.practice;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.concurrent.CountDownLatch;
 
-public class JMultiFetchSample {
+public class TwoImageLatchSample {
 
 
     ImageView bgImageView;
