@@ -1,9 +1,7 @@
-package com.navercorp.navercodelab.events
+package com.navercorp.navercodelab.threads
 
 import android.graphics.*
 import android.widget.ImageView
-import com.navercorp.navercodelab.BuildConfig
-import com.navercorp.navercodelab.samples.coroutine.IO
 import com.navercorp.navercodelab.samples.coroutine.UI
 
 import kotlinx.coroutines.*
@@ -108,39 +106,6 @@ class MultiFetchSample {
         canvas.drawBitmap(profileImage, offset.x.toFloat(), offset.y.toFloat(), null)
         return bmOverlay
     }
-
-
-
-
-    fun cancelJob() {
-
-        System.setProperty("kotlinx.coroutines.debug", if (BuildConfig.DEBUG) "on" else "off")
-
-        GlobalScope.async {
-
-        }
-
-        val job:Job = GlobalScope.launch(IO) {
-
-            withContext(UI) { //Scope를 바꿀 때
-            }
-        }
-
-        job.cancel();
-    }
-
-    fun testRunBlocking() {
-        runBlocking {
-
-        }
-
-        runCatching {
-            //et
-        }
-    }
-
-    //https://proandroiddev.com/kotlin-coroutines-for-asynchronous-programming-and-more-1892db686b1
-
 
 
 }
