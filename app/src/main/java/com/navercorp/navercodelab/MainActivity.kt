@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.example.background.workers.blurBitmap
 import com.example.background.workers.writeBitmapToFile
 import com.navercorp.navercodelab.practice.TwoImageCompletableFuture
+import com.navercorp.navercodelab.practice.TwoImageCoroutineSample
 import com.navercorp.navercodelab.practice.TwoImageExecutor
 import com.navercorp.navercodelab.samples.coroutine.Default
 import com.navercorp.navercodelab.samples.coroutine.IO
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     operator fun  Bitmap.plus(bg:Bitmap):Bitmap  = mergeImages( bg, this, Point(0,0))
 
+   // lateinit var twoImageCoroutine:TwoImageCoroutineSample
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -41,7 +43,10 @@ class MainActivity : AppCompatActivity() {
         //decode()
 
         //TwoImageExecutor(this, photoView).start()
-        TwoImageCompletableFuture(this, photoView).start();
+        //TwoImageCompletableFuture(this, photoView).start();
+
+//        twoImageCoroutine = TwoImageCoroutineSample(this, photoView)
+//        twoImageCoroutine.start()
 
     }
 
@@ -81,6 +86,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+       // twoImageCoroutine.finish()
 
     }
 
