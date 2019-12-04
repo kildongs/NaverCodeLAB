@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         //decode()
 
-        //TwoImageExecutor(this, photoView).start()
+        TwoImageExecutor(this, photoView).start()
         //TwoImageCompletableFuture(this, photoView).start();
 
 //        twoImageCoroutine = TwoImageCoroutineSample(this, photoView)
