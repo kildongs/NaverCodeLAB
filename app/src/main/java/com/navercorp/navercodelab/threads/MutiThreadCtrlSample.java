@@ -1,4 +1,4 @@
-package com.navercorp.navercodelab.events;
+package com.navercorp.navercodelab.threads;
 
 import android.util.Log;
 
