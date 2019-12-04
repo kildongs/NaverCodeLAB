@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.background.workers.blurBitmap
@@ -17,10 +18,16 @@ import com.navercorp.navercodelab.practice.TwoImageExecutor
 import com.navercorp.navercodelab.samples.coroutine.Default
 import com.navercorp.navercodelab.samples.coroutine.IO
 import com.navercorp.navercodelab.samples.coroutine.UI
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.CustomDispatcherExample
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.customDispatcher
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.reportDispatcher
 import com.navercorp.navercodelab.samples.coroutine.mergeImages
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
+
+val currrenThreadName : String
+inline get() = "getCurrentThread = ${Thread.currentThread().name} priority = ${Thread.currentThread().priority}"
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         photoView = findViewById(R.id.photoView)
 
+
+        CustomDispatcherExample().showCoroutine()
 
         //decode()
 
@@ -80,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
 
 
 
