@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.example.background.workers.blurBitmap
 import com.example.background.workers.writeBitmapToFile
+import com.navercorp.navercodelab.practice.TwoImageCompletableFuture
+import com.navercorp.navercodelab.practice.TwoImageExecutor
 import com.navercorp.navercodelab.samples.coroutine.Default
 import com.navercorp.navercodelab.samples.coroutine.IO
 import com.navercorp.navercodelab.samples.coroutine.UI
@@ -22,20 +24,59 @@ import kotlin.system.measureTimeMillis
 class MainActivity : AppCompatActivity() {
 
 
-    val photos = arrayOf("aurora.jpg", "door.png", "matehorn.jpeg", "sea.jpeg", "tea.png", "window_1.png", "window_2.png")
-    val targetName = "tea.png"
-    val bgName = "matehorn.jpeg"
+
     lateinit var photoView: ImageView
 
 
     operator fun  Bitmap.plus(bg:Bitmap):Bitmap  = mergeImages( bg, this, Point(0,0))
 
+
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         photoView = findViewById(R.id.photoView)
 
+
+        //decode()
+
+        //TwoImageExecutor(this, photoView).start()
+        TwoImageCompletableFuture(this, photoView).start();
+
     }
+
+    fun decode() {
+        GlobalScope.launch(Default) {
+            val deferredBG = async<Bitmap>(IO)  {
+                val imageData = assets.open("matehorn.jpeg").use {
+                    BitmapFactory.decodeStream(it)
+                }
+                blurBitmap(imageData, this@MainActivity)
+            }
+
+
+            val deferredTarget = async<Bitmap>(IO)  {
+                val imageData = assets.open("tea.png").use {
+                    BitmapFactory.decodeStream(it)
+                }
+                imageData
+            }
+
+            val deferredMerge = deferredBG.await() + deferredTarget.await()
+
+
+            launch (UI){
+                val resultImage = deferredMerge
+                photoView.setImageBitmap(resultImage)
+                launch(IO) {
+                    writeBitmapToFile(this@MainActivity, resultImage)
+                }
+            }
+        }
+
+    }
+
+
 
 
     override fun onDestroy() {

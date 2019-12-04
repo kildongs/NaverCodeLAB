@@ -22,6 +22,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Point
 import android.net.Uri
 import android.os.Build
 import android.renderscript.Allocation
@@ -117,3 +120,13 @@ fun writeBitmapToFile(applicationContext: Context, bitmap: Bitmap): Uri {
     }
     return Uri.fromFile(outputFile)
 }
+
+
+fun mergeImages(profileImage: Bitmap, profileBg: Bitmap, offset: Point): Bitmap {
+    val bmOverlay = Bitmap.createBitmap(profileBg.getWidth(), profileBg.getHeight(), profileBg.getConfig())
+    val canvas = Canvas(bmOverlay)
+    canvas.drawBitmap(profileBg, Matrix(), null)
+    canvas.drawBitmap(profileImage, offset.x.toFloat(), offset.y.toFloat(), null)
+    return bmOverlay
+}
+

@@ -86,9 +86,5 @@ public class TwoImageLatchSample {
         bgImageView.setImageBitmap(bgBitmap);
 
         profileImageView.setImageBitmap(profileBitmap);
-        //sync.wait();
-
-
-
     }
 }
