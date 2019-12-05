@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.coroutineScope
@@ -18,6 +19,9 @@ import com.navercorp.navercodelab.practice.*
 import com.navercorp.navercodelab.samples.coroutine.Default
 import com.navercorp.navercodelab.samples.coroutine.IO
 import com.navercorp.navercodelab.samples.coroutine.UI
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.CustomDispatcherExample
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.customDispatcher
+import com.navercorp.navercodelab.samples.coroutine.dispatcher.reportDispatcher
 import com.navercorp.navercodelab.samples.coroutine.mergeImages
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -25,6 +29,9 @@ import java.lang.ArithmeticException
 import java.lang.Exception
 import kotlin.system.measureTimeMillis
 
+
+val currrenThreadName : String
+inline get() = "getCurrentThread = ${Thread.currentThread().name} priority = ${Thread.currentThread().priority}"
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         //GifImageMaker(this,photoView).start()
 
         decode()
+
+//        CustomDispatcherExample().showCoroutine()
+
 
         //TwoImageJavaThread(this, photoView).start()
         //TwoImageExecutor(this, photoView).start()
@@ -127,6 +137,8 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 
 
 
