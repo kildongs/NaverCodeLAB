@@ -1,9 +1,13 @@
 package com.navercorp.navercodelab.samples.coroutine.flow
 
-import kotlinx.coroutines.*
-
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import com.navercorp.navercodelab.gif.AnimatedGifEncoder
+import com.navercorp.navercodelab.main.ImageSample
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import java.io.ByteArrayOutputStream
 
 
 val dataFlow = flow {
@@ -29,3 +33,4 @@ fun main() = runBlocking {
     println("Async finsihed")
     result.join()
 }
+

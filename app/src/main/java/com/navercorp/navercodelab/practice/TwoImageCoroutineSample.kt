@@ -27,7 +27,7 @@ class TwoImageCoroutineSample(
     fun start() {
 
         launch {
-            val deferredBG = async<Bitmap>  {
+            val deferredBG = async  {
                 val imageData = activity.assets.open("matehorn.jpeg").use {
                     BitmapFactory.decodeStream(it)
                 }
@@ -35,7 +35,7 @@ class TwoImageCoroutineSample(
             }
 
 
-            val deferredTarget = async<Bitmap>  {
+            val deferredTarget = async  {
                 val imageData = activity.assets.open("tea.png").use {
                     BitmapFactory.decodeStream(it)
                 }
