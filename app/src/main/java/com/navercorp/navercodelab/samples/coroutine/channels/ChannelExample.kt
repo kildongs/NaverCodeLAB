@@ -14,7 +14,7 @@ class ChannelExample {
 
     val imageProcessingJob = Job()
 
-    val sourceChannel = Channel<Buffer>(Channel.UNLIMITED)
+    val sourceChannel = Channel<Buffer>(Channel.CONFLATED)
 
     val context = CoroutineScope(imageProcessingJob )
 
