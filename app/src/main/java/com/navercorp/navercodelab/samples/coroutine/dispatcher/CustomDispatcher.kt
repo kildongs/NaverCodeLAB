@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 val processorCount : Int
     inline get() = Runtime.getRuntime().availableProcessors()
 
-val customExecutor: Executor = Executors.newFixedThreadPool(processorCount,
+val customExecutor: Executor = Executors.newCachedThreadPool(
     object : ThreadFactory {
         override fun newThread(r: Runnable?): Thread {
             return Thread(r, "Audio").apply {
